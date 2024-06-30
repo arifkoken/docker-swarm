@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  web:
+    image: ozgurozturknet/web
+    networks:
+      - overlay-net
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 2s
+        order: stop-first
+  db:
+    image: ozgurozturknet/fakedb
+    networks:
+      - overlay-net
+networks:
+  overlay-net:
+    driver: overlay
